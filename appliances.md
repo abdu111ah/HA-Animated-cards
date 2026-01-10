@@ -82,7 +82,29 @@ card_mod:
         /* --- SENSORS & TIME --- */
         {% set status = states(ent_progress) %}
         {% set status_clean = status | replace('-', ' ') | title %}
-        {% set time_rem = states(ent_timerem) | int(0) %}
+
+        /* Time Detection (mins vs timestamp) */
+        {% set raw_val = states(ent_timerem) | string %}
+
+        /* Check if looks like a timestamp */
+        {% if '-' in raw_val and ':' in raw_val %}
+          {% set end_ts = raw_val | as_datetime %}
+          {% if end_ts %}
+             /* Calculate minutes from timestamp */
+             {% set time_rem = ((end_ts - now()).total_seconds() / 60) | int %}
+          {% else %}
+             {% set time_rem = 0 %}
+          {% endif %}
+        {% else %}
+          /* Not timestamp? treat as minutes */
+          {% set time_rem = raw_val | float(0) | int %}
+        {% endif %}
+
+        /* Prevent negative numbers */
+        {% if time_rem < 0 %} 
+          {% set time_rem = 0 %} 
+        {% endif %}
+
         {% set raw_percent = states(ent_percent) | float(-1) %}
         
         /* --- POWER CALCULATION --- */
@@ -262,7 +284,6 @@ card_mod:
       .container .secondary {
         font-size: var(--config-font-secondary) !important;
       }
-
 ```
 </details>
 
@@ -307,7 +328,29 @@ card_mod:
         /* --- SENSORS & TIME --- */
         {% set status = states(ent_status) %}
         {% set status_clean = status | replace('-', ' ') | title %}
-        {% set time_rem = states(ent_timerem) | int(0) %}
+
+        /* Time Detection (mins vs timestamp) */
+        {% set raw_val = states(ent_timerem) | string %}
+
+        /* Check if looks like a timestamp */
+        {% if '-' in raw_val and ':' in raw_val %}
+          {% set end_ts = raw_val | as_datetime %}
+          {% if end_ts %}
+             /* Calculate minutes from timestamp */
+             {% set time_rem = ((end_ts - now()).total_seconds() / 60) | int %}
+          {% else %}
+             {% set time_rem = 0 %}
+          {% endif %}
+        {% else %}
+          /* Not timestamp? treat as minutes */
+          {% set time_rem = raw_val | float(0) | int %}
+        {% endif %}
+
+        /* Prevent negative numbers */
+        {% if time_rem < 0 %} 
+          {% set time_rem = 0 %} 
+        {% endif %}
+
         {% set raw_percent = states(ent_percent) | float(-1) %}
 
         /* --- POWER CALCULATION --- */
@@ -359,7 +402,7 @@ card_mod:
           {% set color = '0, 255, 255' %}   /* cyan */
           {% set anim_type = 'none' %}
           {% set icon_shake = 'washer-spin-smooth 0.8s linear infinite' %}
-          {% set wave_anim = 'wave 2s linear infinite' %}  /* Fast Wave */
+          {% set wave_anim = 'wave 2s linear infinite' %}          /* Fast Wave */
           {% set overlay_img = 'radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 60%)' %}
 
         {% elif is_done %}
@@ -512,7 +555,6 @@ card_mod:
       .container .secondary {
         font-size: var(--config-font-secondary) !important;
       }
-
 ```
 </details>
 
@@ -557,7 +599,29 @@ card_mod:
         /* --- SENSORS & TIME --- */
         {% set status = states(ent_progress) %}
         {% set status_clean = status | replace('-', ' ') | title %}
-        {% set time_rem = states(ent_timerem) | int(0) %}
+
+        /* Time Detection (mins vs timestamp) */
+        {% set raw_val = states(ent_timerem) | string %}
+
+        /* Check if looks like a timestamp */
+        {% if '-' in raw_val and ':' in raw_val %}
+          {% set end_ts = raw_val | as_datetime %}
+          {% if end_ts %}
+             /* Calculate minutes from timestamp */
+             {% set time_rem = ((end_ts - now()).total_seconds() / 60) | int %}
+          {% else %}
+             {% set time_rem = 0 %}
+          {% endif %}
+        {% else %}
+          /* Not timestamp? treat as minutes */
+          {% set time_rem = raw_val | float(0) | int %}
+        {% endif %}
+
+        /* Prevent negative numbers */
+        {% if time_rem < 0 %} 
+          {% set time_rem = 0 %} 
+        {% endif %}
+
         {% set raw_percent = states(ent_percent) | float(-1) %}
         
         /* --- POWER CALCULATION --- */
@@ -592,7 +656,7 @@ card_mod:
 
         /* --- STATE DEFINITIONS --- */
         {% set s_lower = status | lower %}
-        {% set is_drying  = s_lower in ['drying', 'tumble', 'dry', 'heat', 'drying', 'heating'] %}
+        {% set is_drying  = s_lower in ['drying', 'tumble', 'dry', 'heat', 'drying', 'heating', 'tumbling'] %}
         {% set is_cooling = s_lower in ['cooling', 'cool down', 'anti-crease', 'air fluff'] %}
         {% set is_done    = s_lower in ['finished', 'complete', 'end'] %}
 
@@ -788,7 +852,29 @@ card_mod:
         /* --- SENSORS & DATA --- */
         {% set status = states(ent_status) %}
         {% set status_clean = status | replace('-', ' ') | title %}
-        {% set time_rem = states(ent_timerem) | int(0) %}
+
+        /* Time Detection (mins vs timestamp) */
+        {% set raw_val = states(ent_timerem) | string %}
+
+        /* Check if looks like a timestamp */
+        {% if '-' in raw_val and ':' in raw_val %}
+          {% set end_ts = raw_val | as_datetime %}
+          {% if end_ts %}
+             /* Calculate minutes from timestamp */
+             {% set time_rem = ((end_ts - now()).total_seconds() / 60) | int %}
+          {% else %}
+             {% set time_rem = 0 %}
+          {% endif %}
+        {% else %}
+          /* Not timestamp? treat as minutes */
+          {% set time_rem = raw_val | float(0) | int %}
+        {% endif %}
+
+        /* Prevent negative numbers */
+        {% if time_rem < 0 %} 
+          {% set time_rem = 0 %} 
+        {% endif %}
+
         {% set raw_percent = states(ent_percent) | float(-1) %}
         
         /* --- POWER DISPLAY --- */
@@ -826,7 +912,7 @@ card_mod:
         {% set is_spinning = s_lower in ['spin', 'spinning', 'drain'] %}
         
         /* 2. Heat Phases (Dryer Logic) */
-        {% set is_drying   = s_lower in ['dry', 'drying', 'tumble'] %}
+        {% set is_drying   = s_lower in ['dry', 'drying', 'tumble', 'tumbling'] %}
         {% set is_cooling  = s_lower in ['cooling', 'cool down', 'anti-crease'] %}
         
         /* 3. Finished */
