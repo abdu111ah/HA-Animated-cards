@@ -1291,13 +1291,13 @@ card_mod:
            
            {% set wave_anim = 'wave 4s linear infinite' %}
            {% set level = 60 %}
-           {% set badge_content = status_text ~ " • " ~ power ~ " W" %}
+           {% set badge_content = status_text ~ ' • ' ~ power ~ 'W' %}
 
         {% else %}
            /* --- IDLE STATE --- */
            {% set status_text = 'Idle' %}
            {% set color = '158, 158, 158' %}       
-           {% set badge_content = status_text ~ " • " ~ power ~ " W" %}
+           {% set badge_content = status_text ~ ' • ' ~ power ~ 'W' %}
         {% endif %}
 
         /* --- APPLY CSS VARIABLES --- */
@@ -1559,13 +1559,13 @@ card_mod:
            
            {% set wave_anim = 'wave 4s linear infinite' %}
            {% set level = 60 %}
-           {% set badge_content = status_text ~ " • " ~ power ~ " W" %}
+           {% set badge_content = status_text ~ ' • ' ~ power ~ 'W' %}
 
         {% else %}
            /* --- IDLE STATE --- */
            {% set status_text = 'Idle' %}
            {% set color = '158, 158, 158' %}       
-           {% set badge_content = status_text ~ " • " ~ power ~ " W" %}
+           {% set badge_content = status_text ~ ' • ' ~ power ~ 'W' %}
         {% endif %}
 
         /* --- OUTPUT VARIABLES --- */
@@ -1839,13 +1839,13 @@ card_mod:
            
            {% set wave_anim = 'wave 4s linear infinite' %}
            {% set level = 60 %}
-           {% set badge_content = status_text ~ " • " ~ power ~ " W" %}
+           {% set badge_content = status_text ~ ' • ' ~ power ~ 'W' %}
 
         {% else %}
            /* --- IDLE STATE --- */
            {% set status_text = 'Idle' %}
            {% set color = '158, 158, 158' %}        
-           {% set badge_content = status_text ~ " • " ~ power ~ " W" %}
+           {% set badge_content = status_text ~ ' • ' ~ power ~ 'W' %}
         {% endif %}
 
         /* --- OUTPUT VARIABLES --- */
@@ -2124,7 +2124,7 @@ card_mod:
            {% set status_text = 'Idle' %}
            {% set color = '158, 158, 158' %}   /* Grey */      
            /* ADDED POWER DISPLAY HERE */
-           {% set badge_content = status_text ~ " • " ~ power ~ " W" %}
+           {% set badge_content = status_text ~ ' • ' ~ power ~ 'W' %}
 
         /* PRIORITY 3: MACHINE RUNNING */
         {% else %}
@@ -2155,7 +2155,7 @@ card_mod:
            
            {% set wave_anim = 'wave 4s linear infinite' %}
            {% set level = 60 %}
-           {% set badge_content = status_text ~ " • " ~ power ~ " W" %}
+           {% set badge_content = status_text ~ ' • ' ~ power ~ 'W' %}
 
         {% endif %}
 
